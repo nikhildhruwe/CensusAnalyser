@@ -94,7 +94,7 @@ public class CensusAnalyserTest {
     }
 
     @Test
-    public void givenIndianStateCodeFile_WithWrongFile_ShouldThrowException() {
+    public void givenIndianStateCodeFile_WithWrongFilePath_ShouldThrowException() {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             ExpectedException exceptionRule = ExpectedException.none();
@@ -121,6 +121,19 @@ public class CensusAnalyserTest {
 
     @Test
     public void givenIndiaStateCodeData_WithIncorrectDelimiter_ShouldThrowException() {
+        try {
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
+            ExpectedException exceptionRule = ExpectedException.none();
+            exceptionRule.expect(CensusAnalyserException.class);
+            censusAnalyser.loadIndiaCensusData(INCORRECT_INPUT_STATE_CODE_CSV_FILE);
+        } catch (CensusAnalyserException e) {
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.INCORRECT_CSV_INPUT, e.type);
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Test
+    public void givenIndiaStateCodeData_WithIncorrectHeader_ShouldThrowException() {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             ExpectedException exceptionRule = ExpectedException.none();
