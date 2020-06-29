@@ -16,7 +16,8 @@ public class CensusAnalyserTest {
     private static final String INDIA_STATE_CODE_CSV_FILE_PATH = "./src/test/resources/IndiaStateCode.csv";
     private static final String WRONG_STATE_CODE_CSV_FILE_PATH = "./src/main/resources/IndiaStateCodeData.csv";
     private static final String WRONG_STATE_CODE_FILE_EXTENSION = "./src/test/resources/IndiaStateCodeData.jpg";
-    private static final String INCORRECT_INPUT_STATE_CODE_CSV_FILE = "./src/test/resources/IndiaStateCodeIncorrect.csv";
+    private static final String INCORRECT_INPUT_STATE_CODE_CSV_FILE = "./src/test/resources/IndiaStateCodeIn" +
+                                                                                                        "correct.csv";
 
     //Test cases for the file IndiaStateCensusData.csv
     @Test
@@ -99,7 +100,7 @@ public class CensusAnalyserTest {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             ExpectedException exceptionRule = ExpectedException.none();
             exceptionRule.expect(CensusAnalyserException.class);
-            censusAnalyser.loadIndiaCensusData(WRONG_CSV_FILE_PATH);
+            censusAnalyser.loadIndiaCensusData(WRONG_STATE_CODE_CSV_FILE_PATH);
         } catch (CensusAnalyserException e) {
             Assert.assertEquals(CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM, e.type);
             System.out.println(e.getMessage());
