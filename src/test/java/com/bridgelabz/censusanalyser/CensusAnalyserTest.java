@@ -65,7 +65,6 @@ public class CensusAnalyserTest {
             censusAnalyser.loadIndiaCensusData(INCORRECT_INPUT_CSV_FILE);
         } catch (CensusAnalyserException e) {
             Assert.assertEquals(CensusAnalyserException.ExceptionType.INCORRECT_CSV_INPUT, e.type);
-            System.out.println(e.getMessage());
         }
     }
 
@@ -119,4 +118,18 @@ public class CensusAnalyserTest {
             System.out.println(e.getMessage());
         }
     }
+
+    @Test
+    public void givenIndiaStateCodeData_WithIncorrectDelimiter_ShouldThrowException() {
+        try {
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
+            ExpectedException exceptionRule = ExpectedException.none();
+            exceptionRule.expect(CensusAnalyserException.class);
+            censusAnalyser.loadIndiaCensusData(INCORRECT_INPUT_STATE_CODE_CSV_FILE);
+        } catch (CensusAnalyserException e) {
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.INCORRECT_CSV_INPUT, e.type);
+            System.out.println(e.getMessage());
+        }
+    }
+
 }
