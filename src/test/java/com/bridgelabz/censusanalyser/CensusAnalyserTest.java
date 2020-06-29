@@ -45,4 +45,17 @@ public class CensusAnalyserTest {
             System.out.println(e.getMessage());
         }
     }
+
+    @Test
+    public void givenIndiaCensusData_WithIncorrectDelimiter_ShouldThrowException() {
+        try {
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
+            ExpectedException exceptionRule = ExpectedException.none();
+            exceptionRule.expect(CensusAnalyserException.class);
+            censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
+        } catch (CensusAnalyserException e) {
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.INCORRECT_DELIMITER, e.type);
+            System.out.println(e.getMessage());
+        }
+    }
 }
