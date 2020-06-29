@@ -131,5 +131,4 @@ public class CensusAnalyserTest {
             System.out.println(e.getMessage());
         }
     }
-
 }
