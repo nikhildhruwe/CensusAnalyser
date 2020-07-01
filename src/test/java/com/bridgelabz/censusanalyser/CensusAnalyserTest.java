@@ -27,6 +27,8 @@ public class CensusAnalyserTest {
     private static final String JSON_POPULATION_FILE_PATH = "./censusPopulation.json";
     private static final String JSON_POPULATION_WRONG_FILE_PATH = "./src/main/resources/censusPopulation.json";
     private static final String JSON_POPULATION_DENSITY_FILE_PATH = "./censusPopulationDensity.json";
+    private static final String JSON_STATE_AREA_FILE_PATH = "./censusStateAreaSorted.json";
+
     //Test cases for the file IndiaStateCensusData.csv
     @Test
     public void givenIndianCensusCSVFile_WhenProper_ShouldReturnCorrectRecordCount() {
@@ -188,7 +190,7 @@ public class CensusAnalyserTest {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
             List sortedCensusData = censusAnalyser.getPopulationWiseSortedCensusData(JSON_POPULATION_FILE_PATH);
-            Assert.assertEquals(29,sortedCensusData.size() );
+            Assert.assertEquals(29, sortedCensusData.size());
         } catch (CensusAnalyserException e) {
             e.printStackTrace();
         }
@@ -219,17 +221,18 @@ public class CensusAnalyserTest {
         }
     }
 
-/*    @Test
+    @Test
     public void givenIndiaCensusData_WhenSortedByStateArea_ShouldReturnSortedResultInDescendingOrder() {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
-            String sortedCensusData = censusAnalyser.getStateAreaWiseSortedCensusData();
+            String sortedCensusData = censusAnalyser.getDensityPerSqKmWiseSortedCensusData();
+            censusAnalyser.jsonWriter(sortedCensusData, JSON_STATE_AREA_FILE_PATH);
             IndiaCensusCSV[] censusCSV = new Gson().fromJson(sortedCensusData, IndiaCensusCSV[].class);
-            Assert.assertEquals(342239, censusCSV[0].areaInSqKm);
+            Assert.assertEquals(1102, censusCSV[0].densityPerSqKm);
         } catch (CensusAnalyserException e) {
             e.printStackTrace();
         }
-    }*/
+    }
 }
 
