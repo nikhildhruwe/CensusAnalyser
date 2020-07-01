@@ -70,6 +70,14 @@ public class CensusAnalyser {
         return sortedStateCensusJson;
     }
 
+    public String getStateWiseSortedStateCodeData() {
+        stateCodeCSVList.
+                        sort(((Comparator<IndiaStateCodeCSV>)(code1, code2)->code1.
+                                                                    stateCode.compareTo(code2.stateCode)));
+        String sortedStateCensusJson = new Gson().toJson(stateCodeCSVList);
+        return sortedStateCensusJson;
+    }
+
     private void sort(Comparator<IndiaCensusCSV> censusComparator) {
         for (int i = 0; i < censusCSVList.size() - 1; i++){
             for (int j = 0; j < censusCSVList.size() -i -1 ;j++){
