@@ -101,7 +101,7 @@ public class CensusAnalyser {
         return csvUserList;
     }
 
-    private void jsonWriter(String sortedStateCensusJson, String jsonFilePath) throws CensusAnalyserException {
+    public void jsonWriter(String sortedStateCensusJson, String jsonFilePath) throws CensusAnalyserException {
         try (FileWriter writer = new FileWriter(jsonFilePath);) {
             writer.write(sortedStateCensusJson);
         } catch (IOException e) {
