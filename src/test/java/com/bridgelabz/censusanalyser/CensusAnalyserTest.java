@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import java.lang.reflect.Type;
+import java.util.List;
 
 public class CensusAnalyserTest {
 
@@ -23,7 +24,8 @@ public class CensusAnalyserTest {
     private static final String WRONG_STATE_CODE_FILE_EXTENSION = "./src/test/resources/IndiaStateCodeData.jpg";
     private static final String INCORRECT_INPUT_STATE_CODE_CSV_FILE = "./src/test/resources/IndiaStateCodeIn" +
             "correct.csv";
-
+    private static final String JSON_POPULATION_FILE_PATH = "./censusPopulation.json";
+    private static final String JSON_POPULATION_WRONG_FILE_PATH = "./src/main/resources/censusPopulation.json";
     //Test cases for the file IndiaStateCensusData.csv
     @Test
     public void givenIndianCensusCSVFile_WhenProper_ShouldReturnCorrectRecordCount() {
@@ -180,18 +182,28 @@ public class CensusAnalyserTest {
 
     //UC5
     @Test
-    public void givenIndiaCensusData_WhenSortedByPopulation_ShouldReturnSortedResultInDescendingOrder() {
+    public void givenIndiaCensusData_WhenSortedByPopulation_IfProper_ShouldReturnNumberOfRecords() {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
-            String sortedCensusData = censusAnalyser.getPopulationWiseSortedCensusData();
-            IndiaCensusCSV[] censusCSV = new Gson().fromJson(sortedCensusData, IndiaCensusCSV[].class);
-            Assert.assertEquals(199812341, censusCSV[0].population);
+            List sortedCensusData = censusAnalyser.getPopulationWiseSortedCensusData(JSON_POPULATION_FILE_PATH);
+            Assert.assertEquals(29,sortedCensusData.size() );
         } catch (CensusAnalyserException e) {
             e.printStackTrace();
         }
     }
 
+    @Test
+    public void givenIndiaCensusData_WhenSortedByPopulation_IfNotProper_ShouldThrowException() {
+        try {
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
+            censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
+            censusAnalyser.jsonReader(JSON_POPULATION_WRONG_FILE_PATH);
+        } catch (CensusAnalyserException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+/*
     @Test
     public void givenIndiaCensusData_WhenSortedByPopulationDensity_ShouldReturnSortedResultInDescendingOrder() {
         try {
@@ -216,6 +228,6 @@ public class CensusAnalyserTest {
         } catch (CensusAnalyserException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 }
 
