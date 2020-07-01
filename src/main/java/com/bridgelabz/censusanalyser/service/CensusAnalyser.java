@@ -78,6 +78,12 @@ public class CensusAnalyser {
         return sortedStateCensusJson;
     }
 
+    public String getPopulationWiseSortedCensusData() {
+        Comparator<IndiaCensusCSV> censusComparator = Comparator.comparingInt(census->census.population);
+        this.sort(censusComparator.reversed());
+        String sortedStateCensusJson = new Gson().toJson(censusCSVList);
+        return sortedStateCensusJson;
+    }
     private void sort(Comparator<IndiaCensusCSV> censusComparator) {
         for (int i = 0; i < censusCSVList.size() - 1; i++){
             for (int j = 0; j < censusCSVList.size() -i -1 ;j++){
@@ -90,4 +96,6 @@ public class CensusAnalyser {
             }
         }
     }
+
+
 }
