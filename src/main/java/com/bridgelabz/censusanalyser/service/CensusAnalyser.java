@@ -68,17 +68,6 @@ public class CensusAnalyser {
             StreamSupport.stream(csvIterable.spliterator(), false).
                     forEach(csvCensus -> this.indiaStateDAOMap.put(csvCensus.stateName,new IndiaCensusDAO(csvCensus)));
             return this.indiaStateDAOMap.size();
-//            while (stateCodeCSVIterator.hasNext())
-//            {
-//                count++;
-//                IndiaStateCodeCSV stateCodeCSV = stateCodeCSVIterator.next();
-//                IndiaCensusDAO censusDAO = indiaCensusDAOMap.get(stateCodeCSV.stateName);
-//                if (censusDAO == null){
-//                    censusDAO.stateCode = stateCodeCSV.stateCode;
-//                }
-//                //this.stateCodeList.add(new IndiaCensusDAO(stateCodeCSVIterator.next()));
-//            }
-//            return count;
         } catch (IOException e) {
             throw new CensusAnalyserException(e.getMessage(),
                     CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
