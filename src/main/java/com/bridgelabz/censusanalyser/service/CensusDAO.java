@@ -13,10 +13,11 @@ public class CensusDAO {
     public Double landArea;
     public Integer hosingDensity;
     public String stateId;
+    public Integer population;
 
     public String state;
     public int areaInSqKm;
-    public int population;
+   // public int population;
     public int densityPerSqKm;
 
     public String stateCode;

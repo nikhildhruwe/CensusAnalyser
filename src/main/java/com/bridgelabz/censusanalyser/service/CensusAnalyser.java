@@ -19,7 +19,6 @@ import java.util.stream.StreamSupport;
 public class CensusAnalyser {
     List<CensusDAO> censusList;
     List<CensusDAO> stateCodeList;
-
     Map<String, CensusDAO> indiaCensusDAOMap;
     Map<String, CensusDAO> indiaStateDAOMap;
     Map<String, CensusDAO> usDAOMap;
@@ -125,7 +124,7 @@ public class CensusAnalyser {
      * Method to get state Code wise sorted data from stateCode.csv file
      */
     public String getStateWiseSortedStateCodeData() {
-        stateCodeList = indiaStateDAOMap.values().stream().collect(Collectors.toList());
+        List<CensusDAO> stateCodeList = indiaStateDAOMap.values().stream().collect(Collectors.toList());
         stateCodeList.
                 sort(((Comparator<CensusDAO>) (code1, code2) -> code1.
                         stateCode.compareTo(code2.stateCode)));
@@ -210,7 +209,7 @@ public class CensusAnalyser {
      *
      * @param censusComparator
      */
-    private void sort(Comparator<CensusDAO> censusComparator) {
+    private void sort(Comparator<CensusDAO> censusComparator ) {
         for (int i = 0; i < censusList.size() - 1; i++) {
             for (int j = 0; j < censusList.size() - i - 1; j++) {
                 CensusDAO census1 = censusList.get(j);
@@ -221,6 +220,14 @@ public class CensusAnalyser {
                 }
             }
         }
+    }
+
+    public String getPopulationWiseSortedFromUSCensusData() {
+        List<CensusDAO> usCensusList = usDAOMap.values().stream().collect(Collectors.toList());
+        usCensusList.sort(((Comparator<CensusDAO>) (code1, code2) -> code1.
+                        population.compareTo(code2.population)).reversed());
+        String sortedStateCensusJson = new Gson().toJson(usCensusList);
+        return sortedStateCensusJson;
     }
 
 }

@@ -10,7 +10,7 @@ public class USCensusDataCSV {
     public String state;
 
     @CsvBindByName (column = "Population", required = true)
-    public Integer population;
+    public int population;
 
     @CsvBindByName (column = "Housing units", required = true)
     public Integer housingUnits;
