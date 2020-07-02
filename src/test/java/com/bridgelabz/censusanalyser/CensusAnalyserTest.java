@@ -28,6 +28,8 @@ public class CensusAnalyserTest {
     private static final String JSON_POPULATION_DENSITY_FILE_PATH = "./censusPopulationDensity.json";
     private static final String JSON_STATE_AREA_FILE_PATH = "./censusStateAreaSorted.json";
 
+    private static final String US_CENSUS_FILE_PATH = "./src/test/resources/USCensusData.csv";
+
     //Test cases for the file IndiaStateCensusData.csv
     @Test
     public void givenIndianCensusCSVFile_WhenProper_ShouldReturnCorrectRecordCount() {
@@ -232,6 +234,19 @@ public class CensusAnalyserTest {
             censusAnalyser.jsonWriter(sortedCensusData, JSON_STATE_AREA_FILE_PATH);
             IndiaCensusCSV[] censusCSV = new Gson().fromJson(sortedCensusData, IndiaCensusCSV[].class);
             Assert.assertEquals(342239, censusCSV[0].areaInSqKm);
+        } catch (CensusAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+// USCensusData test cases
+
+    @Test
+    public void givenUSCensusCSVFile_WhenProper_ShouldReturnCorrectRecordCount() {
+        try {
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
+            int numberOfRecords = censusAnalyser.loadUSCensusData(US_CENSUS_FILE_PATH);
+            Assert.assertEquals(51, numberOfRecords);
         } catch (CensusAnalyserException e) {
             e.printStackTrace();
         }
