@@ -222,6 +222,10 @@ public class CensusAnalyser {
         }
     }
 
+    /**
+     * Method to sort by population from USCensusData.
+     * @return
+     */
     public String getPopulationWiseSortedFromUSCensusData() {
         List<CensusDAO> usCensusList = usDAOMap.values().stream().collect(Collectors.toList());
         usCensusList.sort(((Comparator<CensusDAO>) (code1, code2) -> code1.
@@ -230,6 +234,10 @@ public class CensusAnalyser {
         return sortedStateCensusJson;
     }
 
+    /**
+     * Method to sort by population from USCensusData file.
+     * @return
+     */
     public String getPopulationDensityWiseSortedFromUSCensusData() {
         List<CensusDAO> usCensusList = usDAOMap.values().stream().collect(Collectors.toList());
         usCensusList.sort(((Comparator<CensusDAO>) (code1, code2) -> code1.populationDensity.
@@ -238,6 +246,10 @@ public class CensusAnalyser {
         return sortedStateCensusJson;
     }
 
+    /**
+     * Method to sort by total area wise from USCensusData file.
+     * @return
+     */
     public String getAreaWiseSortedFromUSCensusData() {
         List<CensusDAO> usCensusList = usDAOMap.values().stream().collect(Collectors.toList());
         usCensusList.sort(((Comparator<CensusDAO>) (code1, code2) -> code1.totalArea.
@@ -246,6 +258,10 @@ public class CensusAnalyser {
         return sortedStateCensusJson;
     }
 
+    /**
+     * Method to sort by Hosing Density from USCensusData file.
+     * @return
+     */
     public String getHosingDensityWiseSortedFromUSCensusData() {
         List<CensusDAO> usCensusList = usDAOMap.values().stream().collect(Collectors.toList());
         usCensusList.sort(((Comparator<CensusDAO>) (code1, code2) -> code1.hosingDensity.
@@ -254,6 +270,10 @@ public class CensusAnalyser {
         return sortedStateCensusJson;
     }
 
+    /**
+     * Method to sort by Land area from USCensusData file.
+     * @return
+     */
     public String getLandAreaWiseSortedFromUSCensusData() {
         List<CensusDAO> usCensusList = usDAOMap.values().stream().collect(Collectors.toList());
         usCensusList.sort(((Comparator<CensusDAO>) (code1, code2) -> code1.landArea.
