@@ -23,7 +23,7 @@ public class CensusAnalyserTest {
     private static final String WRONG_STATE_CODE_CSV_FILE_PATH = "./src/main/resources/IndiaStateCodeData.csv";
     private static final String WRONG_STATE_CODE_FILE_EXTENSION = "./src/test/resources/IndiaStateCodeData.jpg";
     private static final String INCORRECT_INPUT_STATE_CODE_CSV_FILE = "./src/test/resources/IndiaStateCodeIn" +
-                                                                                                         "correct.csv";
+            "correct.csv";
     private static final String JSON_POPULATION_FILE_PATH = "./censusPopulation.json";
     private static final String JSON_POPULATION_WRONG_FILE_PATH = "./src/main/resources/censusPopulation.json";
     private static final String JSON_POPULATION_DENSITY_FILE_PATH = "./censusPopulationDensity.json";
@@ -266,5 +266,18 @@ public class CensusAnalyserTest {
             System.out.println(e.getMessage());
         }
     }
-}
 
+    @Test
+    public void givenUSCensusData_WhenSortedByPopulationDensity_ShouldReturnSortedResultInDescendingOrder() {
+        try {
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
+            censusAnalyser.loadUSCensusData(US_CENSUS_FILE_PATH);
+            String sortedCensusData = censusAnalyser.getPopulationDensityWiseSortedFromUSCensusData();
+            USCensusDataCSV[] usCensusDataCSVS = new Gson().fromJson(sortedCensusData, USCensusDataCSV[].class);
+            Assert.assertEquals("District of Columbia", usCensusDataCSVS[0].state);
+        } catch (CensusAnalyserException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+}

@@ -230,4 +230,35 @@ public class CensusAnalyser {
         return sortedStateCensusJson;
     }
 
+    public String getPopulationDensityWiseSortedFromUSCensusData() {
+        List<CensusDAO> usCensusList = usDAOMap.values().stream().collect(Collectors.toList());
+        usCensusList.sort(((Comparator<CensusDAO>) (code1, code2) -> code1.populationDensity.
+                compareTo(code2.populationDensity)).reversed());
+        String sortedStateCensusJson = new Gson().toJson(usCensusList);
+        return sortedStateCensusJson;
+    }
+
+    public String getAreaWiseSortedFromUSCensusData() {
+        List<CensusDAO> usCensusList = usDAOMap.values().stream().collect(Collectors.toList());
+        usCensusList.sort(((Comparator<CensusDAO>) (code1, code2) -> code1.totalArea.
+                compareTo(code2.totalArea)).reversed());
+        String sortedStateCensusJson = new Gson().toJson(usCensusList);
+        return sortedStateCensusJson;
+    }
+
+    public String getHosingDensityWiseSortedFromUSCensusData() {
+        List<CensusDAO> usCensusList = usDAOMap.values().stream().collect(Collectors.toList());
+        usCensusList.sort(((Comparator<CensusDAO>) (code1, code2) -> code1.hosingDensity.
+                compareTo(code2.hosingDensity)).reversed());
+        String sortedStateCensusJson = new Gson().toJson(usCensusList);
+        return sortedStateCensusJson;
+    }
+
+    public String getLandAreaWiseSortedFromUSCensusData() {
+        List<CensusDAO> usCensusList = usDAOMap.values().stream().collect(Collectors.toList());
+        usCensusList.sort(((Comparator<CensusDAO>) (code1, code2) -> code1.landArea.
+                compareTo(code2.landArea)).reversed());
+        String sortedStateCensusJson = new Gson().toJson(usCensusList);
+        return sortedStateCensusJson;
+    }
 }
