@@ -280,4 +280,17 @@ public class CensusAnalyserTest {
         }
     }
 
+    @Test
+    public void givenUSCensusData_WhenSortedByTotalArea_ShouldReturnSortedResultInDescendingOrder() {
+        try {
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
+            censusAnalyser.loadUSCensusData(US_CENSUS_FILE_PATH);
+            String sortedCensusData = censusAnalyser.getAreaWiseSortedFromUSCensusData();
+            USCensusDataCSV[] usCensusDataCSVS = new Gson().fromJson(sortedCensusData, USCensusDataCSV[].class);
+            Assert.assertEquals("Alaska", usCensusDataCSVS[0].state);
+        } catch (CensusAnalyserException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 }
