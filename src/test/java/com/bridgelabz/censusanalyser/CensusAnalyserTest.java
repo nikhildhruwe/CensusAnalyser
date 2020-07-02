@@ -293,4 +293,16 @@ public class CensusAnalyserTest {
         }
     }
 
+    @Test
+    public void givenUSCensusData_WhenSortedByHosingDensity_ShouldReturnSortedResultInDescendingOrder() {
+        try {
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
+            censusAnalyser.loadUSCensusData(US_CENSUS_FILE_PATH);
+            String sortedCensusData = censusAnalyser.getHosingDensityWiseSortedFromUSCensusData();
+            USCensusDataCSV[] usCensusDataCSVS = new Gson().fromJson(sortedCensusData, USCensusDataCSV[].class);
+            Assert.assertEquals("California", usCensusDataCSVS[0].state);
+        } catch (CensusAnalyserException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
