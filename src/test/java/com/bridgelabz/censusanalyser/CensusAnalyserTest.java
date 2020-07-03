@@ -303,13 +303,12 @@ public class CensusAnalyserTest {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             censusAnalyser.getPopulationDensityWiseSortedFromUSCensusData();
             censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
-            censusAnalyser.loadIndiaStateCode(INDIA_STATE_CODE_CSV_FILE_PATH);
+            censusAnalyser.loadUSCensusData(US_CENSUS_FILE_PATH);
             String sortedCensusData = censusAnalyser.getDensityPerSqKmWiseSortedCensusData();
             String sortedUSData = censusAnalyser.getPopulationDensityWiseSortedFromUSCensusData();
             String state = censusAnalyser
-                    .getMostPopulousStateWithDensityForIndiaAndUs(sortedCensusData, sortedUSData);
-            Assert.assertEquals("",state);
-
+                                .getMostPopulousStateWithDensityForIndiaAndUs(sortedCensusData, sortedUSData);
+            Assert.assertEquals("District of Columbia",state);
         }catch (CensusAnalyserException e){
             e.printStackTrace();
         }
