@@ -255,6 +255,12 @@ public class CensusAnalyser {
         return sortedStateCensusJson;
     }
 
+    /**
+     * Method to analyse highest population density from us and india census file.
+     * @param sortedCensusData
+     * @param sortedUSData
+     * @return state with highest density
+     */
     public String getMostPopulousStateWithDensityForIndiaAndUs(String sortedCensusData, String sortedUSData) {
 
         IndiaCensusCSV[] indiaCensusDataCSV = new Gson().fromJson(sortedCensusData, IndiaCensusCSV[].class);
