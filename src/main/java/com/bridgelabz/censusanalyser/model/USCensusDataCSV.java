@@ -12,21 +12,22 @@ public class USCensusDataCSV {
     @CsvBindByName (column = "Population", required = true)
     public int population;
 
-    @CsvBindByName (column = "Housing units", required = true)
-    public Integer housingUnits;
 
     @CsvBindByName (column = "Total area", required = true)
-    public Double totalArea;
+    public double totalArea;
 
-    @CsvBindByName (column = "Water area", required = true)
-    public Double waterArea;
-
-    @CsvBindByName (column = "Land area", required = true)
-    public Double landArea;
 
     @CsvBindByName (column = "Population Density", required = true)
-    public Double populationDensity;
+    public double populationDensity;
 
-    @CsvBindByName (column = "Housing Density", required = true)
-    public Double housingDensity;
+    @Override
+    public String toString() {
+        return "USCensusDataCSV{" +
+                "stateId='" + stateId + '\'' +
+                ", state='" + state + '\'' +
+                ", population=" + population +
+                ", totalArea=" + totalArea +
+                ", populationDensity=" + populationDensity +
+                '}';
+    }
 }
