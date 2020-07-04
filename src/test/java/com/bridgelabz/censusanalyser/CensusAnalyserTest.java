@@ -274,7 +274,7 @@ public class CensusAnalyserTest {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             censusAnalyser.loadUSCensusData(US_CENSUS_FILE_PATH);
-            String usCensusData = censusAnalyser.getDensityPerSqKmWiseSortedCensusData();
+            String usCensusData = censusAnalyser.getPopulationDensityWiseSortedFromUSCensusData();
             USCensusDataCSV[] usCensusDataCSV = new Gson().fromJson(usCensusData, USCensusDataCSV[].class);
             Assert.assertEquals("District of Columbia", usCensusDataCSV[0].state);
         } catch (CensusAnalyserException e) {
