@@ -19,13 +19,27 @@ import java.util.Map;
 import java.util.stream.StreamSupport;
 
 public class censusLoader {
-
+    /**
+     * Method to load census data according to country.
+     * @param country
+     * @param csvFilePath
+     * @throws CensusAnalyserException
+     */
+    public Map<String, CensusDAO> loadCensusData(CensusAnalyser.Country country, String... csvFilePath)
+                                                                                        throws CensusAnalyserException {
+        if (country.equals(CensusAnalyser.Country.INDIA))
+           return this.loadCensusData(IndiaCensusCSV.class, csvFilePath);
+        else if (country.equals(CensusAnalyser.Country.US))
+           return this.loadCensusData(USCensusDataCSV.class, csvFilePath);
+        else throw new CensusAnalyserException("Incorrect Country"
+                                                            , CensusAnalyserException.ExceptionType.INVALID_COUNTRY);
+    }
     /**
      * Method to load census data
      * @param csvFilePath and csvClass
      * @return Count of the records
      */
-    public <E> Map<String,CensusDAO> loadCensusData(Class<E> csvClass, String... csvFilePath) throws CensusAnalyserException {
+    private  <E> Map<String,CensusDAO> loadCensusData(Class<E> csvClass, String... csvFilePath) throws CensusAnalyserException {
         Map<String, CensusDAO> censusMap = new HashMap<>();
       //  Map<String, CensusDAO> usCensusMap = new HashMap<>();
         try {
@@ -62,7 +76,7 @@ public class censusLoader {
      * Method to load IndiaStateCode.csv file
      * @return number of records of he file.
      */
-    public int loadIndiaStateCode(Map<String, CensusDAO> censusMap, String csvFilePath) throws CensusAnalyserException {
+    private int loadIndiaStateCode(Map<String, CensusDAO> censusMap, String csvFilePath) throws CensusAnalyserException {
         try {
             Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
             ICSVBuilder icsvBuilder = CSVBuilderFactory.craeteCSVBuilder();
