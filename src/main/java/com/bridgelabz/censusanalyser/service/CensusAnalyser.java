@@ -29,43 +29,12 @@ public class CensusAnalyser {
      * Method to load India Census data
      * @return number of records if the file
      */
-    public int loadIndiaCensusData(String csvFilePath) throws CensusAnalyserException {
-        censusMap = new censusLoader().loadCensusData(csvFilePath, IndiaCensusCSV.class);
+    public int loadIndiaCensusData(String... csvFilePath) throws CensusAnalyserException {
+        censusMap = new censusLoader().loadCensusData(IndiaCensusCSV.class, csvFilePath);
         return  censusMap.size();
     }
 
-    /**
-     * Method to load census data
-     * @param csvFilePath and csvClass
-     * @return Count of the records
-     */
 
-
-    /**
-     * Method to load IndiaStateCode.csv file
-     * @return number of records of he file.
-     */
-    public int loadIndiaStateCode(String csvFilePath) throws CensusAnalyserException {
-        try {
-            Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
-            ICSVBuilder icsvBuilder = CSVBuilderFactory.craeteCSVBuilder();
-            Iterator<IndiaStateCodeCSV> stateCodeCSVIterator = icsvBuilder.getCSVFileIterator(reader, IndiaStateCodeCSV.class);
-            Iterable<IndiaStateCodeCSV> csvIterable = () -> stateCodeCSVIterator;
-            StreamSupport.stream(csvIterable.spliterator(), false)
-                    .filter(csvCensus -> censusMap.get(csvCensus.stateName) != null)
-                    .forEach(csvCensus -> censusMap.get(csvCensus.stateName).stateCode = csvCensus.stateCode);
-            //    .forEach(csvCensus -> this.censusStateMap.put(csvCensus.stateName, new CensusDAO(csvCensus)));
-            return this.censusMap.size();
-        } catch (IOException e) {
-            throw new CensusAnalyserException(e.getMessage(),
-                    CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
-        } catch (RuntimeException e) {
-            throw new CensusAnalyserException(e.getMessage(),
-                    CensusAnalyserException.ExceptionType.INCORRECT_CSV_INPUT);
-        } catch (CSVBuilderException e) {
-            throw new CensusAnalyserException(e.getMessage(), e.type.name());
-        }
-    }
 
     /**
      * Method to load US Census Data file
@@ -73,8 +42,8 @@ public class CensusAnalyser {
      * @return total count of the records.
      * @throws CensusAnalyserException
      */
-    public int loadUSCensusData(String csvFilePath) throws CensusAnalyserException {
-        usCensusMap = new censusLoader().loadCensusData(csvFilePath, USCensusDataCSV.class);
+    public int loadUSCensusData(String... csvFilePath) throws CensusAnalyserException {
+        usCensusMap = new censusLoader().loadCensusData(USCensusDataCSV.class, csvFilePath);
         return usCensusMap.size();
     }
 
