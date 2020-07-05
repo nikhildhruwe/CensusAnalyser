@@ -23,8 +23,6 @@ public class CensusAnalyser {
     Map<String, CensusDAO> usCensusMap;
 
     public CensusAnalyser() {
-        this.censusMap = new HashMap<>();
-        this.usCensusMap = new HashMap<>();
     }
 
     /**
@@ -32,7 +30,8 @@ public class CensusAnalyser {
      * @return number of records if the file
      */
     public int loadIndiaCensusData(String csvFilePath) throws CensusAnalyserException {
-        return this.loadCensusData(csvFilePath, IndiaCensusCSV.class);
+        censusMap = new censusLoader().loadCensusData(csvFilePath, IndiaCensusCSV.class);
+        return  censusMap.size();
     }
 
     /**
@@ -40,37 +39,7 @@ public class CensusAnalyser {
      * @param csvFilePath and csvClass
      * @return Count of the records
      */
-    private <E> int loadCensusData(String csvFilePath, Class<E> csvClass) throws CensusAnalyserException {
-        try {
-            Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));
-            ICSVBuilder csvBuilder = CSVBuilderFactory.craeteCSVBuilder();
-            Iterator<E> csvIterator = csvBuilder.getCSVFileIterator(reader, csvClass);
-            Iterable<E> csvIterable = () -> csvIterator;
-            ;
-            if (csvClass.getSimpleName().equals("IndiaCensusCSV")) {
-                StreamSupport.stream(csvIterable.spliterator(), false)
-                        .map(IndiaCensusCSV.class::cast)
-                        .forEach(csvCensus -> this.censusMap.put(csvCensus.state, new CensusDAO(csvCensus)));
-            }
 
-            if (csvClass.getSimpleName().equals("USCensusDataCSV")) {
-                StreamSupport.stream(csvIterable.spliterator(), false)
-                        .map(USCensusDataCSV.class::cast)
-                        .forEach(csvCensus -> this.usCensusMap.put(csvCensus.state, new CensusDAO(csvCensus)));
-                return this.usCensusMap.size();
-            }
-            return this.censusMap.size();
-        } catch (IOException e) {
-            throw new CensusAnalyserException(e.getMessage(),
-                    CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
-        } catch (RuntimeException e) {
-            throw new CensusAnalyserException(e.getMessage(),
-                    CensusAnalyserException.ExceptionType.INCORRECT_CSV_INPUT);
-        } catch (CSVBuilderException e) {
-            throw new CensusAnalyserException(e.getMessage(), e.type.name());
-        }
-
-    }
 
     /**
      * Method to load IndiaStateCode.csv file
@@ -105,7 +74,8 @@ public class CensusAnalyser {
      * @throws CensusAnalyserException
      */
     public int loadUSCensusData(String csvFilePath) throws CensusAnalyserException {
-        return this.loadCensusData(csvFilePath, USCensusDataCSV.class);
+        usCensusMap = new censusLoader().loadCensusData(csvFilePath, USCensusDataCSV.class);
+        return usCensusMap.size();
     }
 
     /**
@@ -268,7 +238,6 @@ public class CensusAnalyser {
         USCensusDataCSV[] usCensusDataCSV = new Gson().fromJson(sortedUSData, USCensusDataCSV[].class);
         if (indiaCensusDataCSV[0].densityPerSqKm > usCensusDataCSV[0].populationDensity)
             return indiaCensusDataCSV[0].state;
-        else
             return usCensusDataCSV[0].state;
     }
 }
