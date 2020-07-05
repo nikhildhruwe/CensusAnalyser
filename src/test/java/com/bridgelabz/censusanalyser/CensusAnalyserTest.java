@@ -301,7 +301,6 @@ public class CensusAnalyserTest {
     public void givenIndiaAndUSCensusData_WhenSortedByPopulation_ShouldReturnHighestDensityState() {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
-            censusAnalyser.getPopulationDensityWiseSortedFromUSCensusData();
             censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
             censusAnalyser.loadUSCensusData(US_CENSUS_FILE_PATH);
             String sortedCensusData = censusAnalyser.getDensityPerSqKmWiseSortedCensusData();
