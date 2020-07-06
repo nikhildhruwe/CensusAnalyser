@@ -1,4 +1,7 @@
-package com.bridgelabz.censusanalyser.model;
+package com.bridgelabz.censusanalyser.dao;
+
+import com.bridgelabz.censusanalyser.model.IndiaCensusCSV;
+import com.bridgelabz.censusanalyser.model.USCensusDataCSV;
 
 public class CensusDAO {
 

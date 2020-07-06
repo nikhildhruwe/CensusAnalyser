@@ -1,7 +1,7 @@
 package com.bridgelabz.censusanalyser.service;
 
 import com.bridgelabz.censusanalyser.exception.CensusAnalyserException;
-import com.bridgelabz.censusanalyser.model.CensusDAO;
+import com.bridgelabz.censusanalyser.dao.CensusDAO;
 import com.bridgelabz.censusanalyser.model.IndiaCensusCSV;
 import com.bridgelabz.censusanalyser.model.USCensusDataCSV;
 import com.google.gson.Gson;
@@ -26,7 +26,7 @@ public class CensusAnalyser {
      * @return number of records if the file
      */
     public int loadCensusData(Country country, String... csvFilePath) throws CensusAnalyserException {
-        censusMap = new censusLoader().loadCensusData(country, csvFilePath);
+        censusMap = CensusAdapterFactory.getCensusData(country, csvFilePath);
         return censusMap.size();
     }
 
@@ -37,7 +37,6 @@ public class CensusAnalyser {
      */
     public String getStateWiseSortedCensusData() throws CensusAnalyserException {
         List<CensusDAO> censusList = censusMap.values().stream().collect(Collectors.toList());
-
         if (censusList == null || censusList.size() == 0) {
             throw new CensusAnalyserException("No Census Data", CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
         }
@@ -64,7 +63,6 @@ public class CensusAnalyser {
         List<CensusDAO> censusList = censusMap.values().stream().collect(Collectors.toList());
         Comparator<CensusDAO> censusComparator = Comparator.comparingInt(census -> census.population);
         this.sort(censusComparator.reversed(), censusList);
-
         String sortedStateCensusJson = new Gson().toJson(censusList);
         this.jsonWriter(sortedStateCensusJson, jsonFilePath);
         List jsonList = this.jsonReader(jsonFilePath);
