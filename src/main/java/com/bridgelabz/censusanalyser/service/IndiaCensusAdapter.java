@@ -1,10 +1,9 @@
 package com.bridgelabz.censusanalyser.service;
 
-import com.bridgelabz.censusanalyser.exception.CensusAnalyserException;
 import com.bridgelabz.censusanalyser.dao.CensusDAO;
+import com.bridgelabz.censusanalyser.exception.CensusAnalyserException;
 import com.bridgelabz.censusanalyser.model.IndiaCensusCSV;
 import com.bridgelabz.censusanalyser.model.IndiaStateCodeCSV;
-import com.bridgelabz.censusanalyser.model.USCensusDataCSV;
 import com.bridgelabz.csvjar.utility.CSVBuilderException;
 import com.bridgelabz.csvjar.utility.CSVBuilderFactory;
 import com.bridgelabz.csvjar.utility.ICSVBuilder;
@@ -13,7 +12,6 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.stream.StreamSupport;

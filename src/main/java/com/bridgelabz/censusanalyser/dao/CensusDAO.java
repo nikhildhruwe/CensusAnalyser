@@ -31,6 +31,5 @@ public class CensusDAO {
         if (country.equals(CensusAnalyser.Country.US))
             return new USCensusDataCSV(state, stateCode, population, populationDensity, totalArea);
         return new IndiaCensusCSV(state, population, (int) totalArea, (int) populationDensity);
-
     }
 }

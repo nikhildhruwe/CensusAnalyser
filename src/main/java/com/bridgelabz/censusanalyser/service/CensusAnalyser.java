@@ -33,12 +33,12 @@ public class CensusAnalyser {
 
     /**
      * Method to sort census data state wise
-     *
      * @throws CensusAnalyserException
      */
     public String getStateWiseSortedCensusData() throws CensusAnalyserException {
         if (censusMap == null || censusMap.size() == 0) {
-            throw new CensusAnalyserException("No Census Data", CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
+            throw new CensusAnalyserException("No Census Data"
+                                                        , CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
         }
         Comparator<CensusDAO> censusComparator = Comparator.comparing(census -> census.state);
         ArrayList censusDTO = censusMap.values().stream().sorted(censusComparator)
@@ -74,7 +74,6 @@ public class CensusAnalyser {
 
     /**
      * Method to sort census data according to population density.
-     *
      * @return sorted json format  density wise.
      */
     public String getDensityPerSqKmWiseSortedCensusData() {
@@ -88,7 +87,6 @@ public class CensusAnalyser {
 
     /**
      * Method to sort census data according to State Area.
-     *
      * @return sorted data of census file.
      */
     public String getStateAreaWiseSortedCensusData() {
@@ -103,7 +101,6 @@ public class CensusAnalyser {
 
     /**
      * Method to read from json file
-     *
      * @param jsonFilePath
      * @return list type from json file.
      * @throws CensusAnalyserException
@@ -122,7 +119,6 @@ public class CensusAnalyser {
 
     /**
      * method to write in a json file.
-     *
      * @param sortedStateCensusJson
      * @param jsonFilePath
      * @throws CensusAnalyserException
@@ -137,7 +133,6 @@ public class CensusAnalyser {
 
     /**
      * Method to sort by population from USCensusData.
-     *
      * @return
      */
     public String getPopulationWiseSortedFromUSCensusData() {
@@ -150,7 +145,6 @@ public class CensusAnalyser {
 
     /**
      * Method to sort by population from USCensusData file.
-     *
      * @return
      */
     public String getPopulationDensityWiseSortedFromUSCensusData() {
@@ -163,7 +157,6 @@ public class CensusAnalyser {
 
     /**
      * Method to sort by total area wise from USCensusData file.
-     *
      * @return
      */
     public String getAreaWiseSortedFromUSCensusData() {
