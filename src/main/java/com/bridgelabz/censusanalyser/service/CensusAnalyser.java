@@ -1,5 +1,6 @@
 package com.bridgelabz.censusanalyser.service;
 
+import com.bridgelabz.censusanalyser.adapter.CensusAdapterFactory;
 import com.bridgelabz.censusanalyser.exception.CensusAnalyserException;
 import com.bridgelabz.censusanalyser.dao.CensusDAO;
 import com.bridgelabz.censusanalyser.model.IndiaCensusCSV;
@@ -51,17 +52,23 @@ public class CensusAnalyser {
     /**
      * Method to get state Code wise sorted data from stateCode.csv file
      */
-    public String getStateWiseSortedStateCodeData() {
+    public String getStateWiseSortedStateCodeData() throws CensusAnalyserException {
+        if (censusMap == null || censusMap.size() == 0) {
+            throw new CensusAnalyserException("No Census Data"
+                    , CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
+        }
         List<CensusDAO> stateCodeList = censusMap.values().stream().collect(Collectors.toList());
-        stateCodeList.
-                sort(((Comparator<CensusDAO>) (code1, code2) -> code1.
-                        stateCode.compareTo(code2.stateCode)));
+        stateCodeList.sort(Comparator.comparing(code -> code.stateCode));
         String sortedStateCensusJson = new Gson().toJson(stateCodeList);
         return sortedStateCensusJson;
     }
 
     // Method to sort census data according to population
     public List getPopulationWiseSortedCensusData(String jsonFilePath) throws CensusAnalyserException {
+        if (censusMap == null || censusMap.size() == 0) {
+            throw new CensusAnalyserException("No Census Data"
+                    , CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
+        }
         Comparator<CensusDAO> censusComparator = Comparator.comparing(census -> census.population);
         ArrayList censusDTO = censusMap.values().stream().sorted(censusComparator)
                 .map(censusDAO -> censusDAO.getCensusDTO(country))
@@ -76,7 +83,11 @@ public class CensusAnalyser {
      * Method to sort census data according to population density.
      * @return sorted json format  density wise.
      */
-    public String getDensityPerSqKmWiseSortedCensusData() {
+    public String getDensityPerSqKmWiseSortedCensusData() throws CensusAnalyserException {
+        if (censusMap == null || censusMap.size() == 0) {
+            throw new CensusAnalyserException("No Census Data"
+                    , CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
+        }
         Comparator<CensusDAO> censusComparator = Comparator.comparing(census -> census.populationDensity);
         ArrayList censusDTO = censusMap.values().stream().sorted(censusComparator.reversed())
                 .map(censusDAO -> censusDAO.getCensusDTO(country))
@@ -89,7 +100,11 @@ public class CensusAnalyser {
      * Method to sort census data according to State Area.
      * @return sorted data of census file.
      */
-    public String getStateAreaWiseSortedCensusData() {
+    public String getStateAreaWiseSortedCensusData() throws CensusAnalyserException {
+        if (censusMap == null || censusMap.size() == 0) {
+            throw new CensusAnalyserException("No Census Data"
+                    , CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
+        }
         Comparator<CensusDAO> censusComparator = Comparator.comparing(census -> census.totalArea);
         ArrayList censusDTO = censusMap.values().stream().sorted(censusComparator.reversed())
                 .map(censusDAO -> censusDAO.getCensusDTO(country))
@@ -135,7 +150,11 @@ public class CensusAnalyser {
      * Method to sort by population from USCensusData.
      * @return
      */
-    public String getPopulationWiseSortedFromUSCensusData() {
+    public String getPopulationWiseSortedFromUSCensusData() throws CensusAnalyserException {
+        if (censusMap == null || censusMap.size() == 0) {
+            throw new CensusAnalyserException("No Census Data"
+                    , CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
+        }
         List<CensusDAO> usCensusList = censusMap.values().stream().collect(Collectors.toList());
         usCensusList.sort(((Comparator<CensusDAO>) (code1, code2) -> code1.
                 population - code2.population).reversed());
@@ -159,7 +178,11 @@ public class CensusAnalyser {
      * Method to sort by total area wise from USCensusData file.
      * @return
      */
-    public String getAreaWiseSortedFromUSCensusData() {
+    public String getAreaWiseSortedFromUSCensusData() throws CensusAnalyserException {
+        if (censusMap == null || censusMap.size() == 0) {
+            throw new CensusAnalyserException("No Census Data"
+                    , CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
+        }
         List<CensusDAO> usCensusList = censusMap.values().stream().collect(Collectors.toList());
         usCensusList.sort(((Comparator<CensusDAO>) (code1, code2) -> (int) (code1.totalArea - code2.totalArea))
                                                                                                         .reversed());

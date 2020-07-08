@@ -31,15 +31,4 @@ public class USCensusDataCSV {
         this.totalArea = totalArea;
         this.populationDensity = populationDensity;
     }
-
-    @Override
-    public String toString() {
-        return "USCensusDataCSV{" +
-                "stateId='" + stateId + '\'' +
-                ", state='" + state + '\'' +
-                ", population=" + population +
-                ", totalArea=" + totalArea +
-                ", populationDensity=" + populationDensity +
-                '}';
-    }
 }

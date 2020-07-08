@@ -1,4 +1,4 @@
-package com.bridgelabz.censusanalyser.service;
+package com.bridgelabz.censusanalyser.adapter;
 
 import com.bridgelabz.censusanalyser.dao.CensusDAO;
 import com.bridgelabz.censusanalyser.exception.CensusAnalyserException;
